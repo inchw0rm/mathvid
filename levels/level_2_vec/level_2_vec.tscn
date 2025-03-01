@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://dociprbknkk6j"]
+
+[ext_resource type="PackedScene" uid="uid://c2bdooclr75yk" path="res://levels/common/main.tscn" id="1_ij2aw"]
+[ext_resource type="Script" path="res://levels/level_2_vec/sphere.gd" id="2_x4ko2"]
+[ext_resource type="Script" path="res://levels/level_2_vec/arrow.gd" id="3_8wt3i"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_svno1"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_mec0d"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8xgca"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_hgdeo"]
+
+[node name="Level2Vec" type="Node3D"]
+
+[node name="Main" parent="." instance=ExtResource("1_ij2aw")]
+
+[node name="Arrow" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, -0.2, 0, 0.2, -8.74228e-09, 0, 0.845, 0)
+mesh = SubResource("CylinderMesh_svno1")
+skeleton = NodePath("../RigidBody3D")
+script = ExtResource("3_8wt3i")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Arrow"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.01756, 0)
+mesh = SubResource("PrismMesh_mec0d")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.96046e-08, -3.55271e-15)
+linear_damp = 1.01
+script = ExtResource("2_x4ko2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("SphereShape3D_8xgca")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D/CollisionShape3D"]
+mesh = SubResource("SphereMesh_hgdeo")
+skeleton = NodePath("../..")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.677351, 0.73566, 0, -0.73566, 0.677351, 0, 4.29751, 5.38308)
+
+[connection signal="directionVector" from="RigidBody3D" to="Arrow" method="_on_rigid_body_3d_direction_vector"]
+[connection signal="positionVector" from="RigidBody3D" to="Arrow" method="_on_rigid_body_3d_position_vector"]

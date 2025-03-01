@@ -1,0 +1,17 @@
+[gd_resource type="Environment" load_steps=3 format=3 uid="uid://cjlkcqd2kno33"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_y2kwf"]
+
+[sub_resource type="Sky" id="Sky_gbnbv"]
+sky_material = SubResource("ProceduralSkyMaterial_y2kwf")
+process_mode = 1
+radiance_size = 4
+
+[resource]
+background_mode = 2
+background_energy_multiplier = 1.84
+sky = SubResource("Sky_gbnbv")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 2.85
+reflected_light_source = 2
